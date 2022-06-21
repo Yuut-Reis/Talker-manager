@@ -23,10 +23,15 @@ app.get('/talker', (req, res) => {
   const talkerData = JSON.parse(data);
   if (!talkerData.length) {
     return res.status(200).send([]);
-  }else{
-    return res.status(200).send(talkerData);
-  }
+  } return res.status(200).send(talkerData);
 });
 
-
-
+app.get('/talker/:id', (req, res) => {
+  const data = fs.readFileSync('./talker.json', 'utf-8');
+  const talkerData = JSON.parse(data);
+  const { id } = req.params;
+  const verifyTalker = talkerData.find((talker) => talker.id === Number(id));
+  if (!verifyTalker) {
+    return res.status(404).send({ message: 'Pessoa palestrante não encontrada' });
+  } return res.status(200).send(verifyTalker);
+});
