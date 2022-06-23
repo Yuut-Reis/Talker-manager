@@ -79,3 +79,12 @@ app.post('/talker',
     fs.writeFileSync(talkerJson, JSON.stringify(talkerData));
     return res.status(200).send(newTalker);
   });
+
+app.delete('/talker/:id', tokenTest, (req, res) => {
+  const data = fs.readFileSync(talkerJson, 'utf-8');
+  const talkerData = JSON.parse(data);
+  const id = Number(req.params.id);
+  const deleteTalker = talkerData.filter((talker) => talker.id !== id);
+  fs.writeFileSync(talkerJson, JSON.stringify(deleteTalker));
+  return res.status(204).send();
+});
