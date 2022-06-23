@@ -35,6 +35,20 @@ app.get('/talker', (req, res) => {
   } return res.status(200).send(talkerData);
 });
 
+app.get('/talker/search', tokenTest, (req, res) => {
+  const data = fs.readFileSync(talkerJson, 'utf-8');
+  const talkerData = JSON.parse(data);
+  const { q } = req.query;
+  if (!q) { 
+    return res.status(200).send(talkerData);
+  }
+  const talkerSearch = talkerData.filter((talker) => talker.name.includes(q));
+  if (!talkerSearch.length) {
+    return res.status(200).send([]);
+  }
+  return res.status(200).send(talkerSearch);
+});
+
 app.get('/talker/:id', (req, res) => {
   const data = fs.readFileSync(talkerJson, 'utf-8');
   const talkerData = JSON.parse(data);
