@@ -29,8 +29,8 @@ const talkeTestOne = (req, res, next) => {
     if (!talk.watchedAt) {
         return res.status(400).send({ message: 'O campo "watchedAt" é obrigatório' });
     }
-    if (!talk.rate) {
-        return res.status(400).send({ message: 'O campo "rate" é obrigatório' });
+    if (Number(talk.rate) < 1 || Number(talk.rate) > 5) {
+        return res.status(400).send({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
     }
     next();
 };
@@ -39,15 +39,16 @@ const talkeTestTwo = (req, res, next) => {
     const { talk } = req.body;
     const regex = /^(0?[1-9]|[12][0-9]|3[01])[/-](0?[1-9]|1[012])[/-]\d{4}$/;
     const dat = regex.test(talk.watchedAt);
-    if (Number(talk.rate) < 1 || Number(talk.rate) > 5) {
-        return res.status(400).send({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
-    }
+    
     if (!talk.watchedAt) {
         return res.status(400).send({ message: 'O campo "watchedAt" é obrigatório' });
     }
     if (!dat) {
         return res.status(400).send({
             message: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"' });
+    }
+    if (!talk.rate) {
+        return res.status(400).send({ message: 'O campo "rate" é obrigatório' });
     }
     next();
 };

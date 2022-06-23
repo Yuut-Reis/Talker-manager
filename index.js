@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 const HTTP_OK_STATUS = 200;
 const PORT = '3000';
-
+const talkerJson = './talker.json';
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
@@ -28,7 +28,7 @@ app.listen(PORT, () => {
 
 // iniciando projeto
 app.get('/talker', (req, res) => {
-  const data = fs.readFileSync('./talker.json', 'utf-8');
+  const data = fs.readFileSync(talkerJson, 'utf-8');
   const talkerData = JSON.parse(data);
   if (!talkerData.length) {
     return res.status(200).send([]);
@@ -36,7 +36,7 @@ app.get('/talker', (req, res) => {
 });
 
 app.get('/talker/:id', (req, res) => {
-  const data = fs.readFileSync('./talker.json', 'utf-8');
+  const data = fs.readFileSync(talkerJson, 'utf-8');
   const talkerData = JSON.parse(data);
   const { id } = req.params;
   const verifyTalker = talkerData.find((talker) => talker.id === Number(id));
@@ -56,11 +56,26 @@ app.post('/talker',
   ageTest,
   talkeTestOne,
   talkeTestTwo, (req, res) => {
-    const data = fs.readFileSync('./talker.json', 'utf-8');
+    const data = fs.readFileSync(talkerJson, 'utf-8');
     const talkerData = JSON.parse(data);
     const newTalker = { ...req.body, id: talkerData.length + 1 };
     talkerData.push(newTalker);
     const newTalkerData = JSON.stringify(talkerData);
-    fs.writeFileSync('./talker.json', newTalkerData);
+    fs.writeFileSync(talkerJson, newTalkerData);
     return res.status(201).send(newTalker);
+  });
+
+  app.put('/talker/:id', tokenTest,
+  nameTest,
+  ageTest,
+  talkeTestOne,
+  talkeTestTwo, (req, res) => {
+    const data = fs.readFileSync(talkerJson, 'utf-8');
+    const talkerData = JSON.parse(data);
+    const id = Number(req.params.id);
+    const verifyTalker = talkerData.findIndex((talker) => talker.id === id);
+    const newTalker = { ...req.body, id };
+    talkerData[verifyTalker] = { ...newTalker };
+    fs.writeFileSync(talkerJson, JSON.stringify(talkerData));
+    return res.status(200).send(newTalker);
   });
