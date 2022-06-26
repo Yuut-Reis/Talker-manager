@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,macos,windows,linux,visualstudiocode,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,macos,windows,linux,visualstudiocode,intellij
@@ -142,6 +143,8 @@ Temporary Items
 .apdisk
 
 ### Node ###
+=======
+>>>>>>> 6f045b76dc1088d86beab2aa1b8bacdf842dc911
 # Logs
 logs
 *.log
@@ -228,7 +231,11 @@ dist
 
 # Gatsby files
 .cache/
+<<<<<<< HEAD
 # Comment in the public line in if your project uses Gatsby and not Next.js
+=======
+# Comment in the public line in if your project uses Gatsby and *not* Next.js
+>>>>>>> 6f045b76dc1088d86beab2aa1b8bacdf842dc911
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
@@ -246,6 +253,7 @@ dist
 
 # TernJS port file
 .tern-port
+<<<<<<< HEAD
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
@@ -289,3 +297,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/node,macos,windows,linux,visualstudiocode,intellij
+=======
+>>>>>>> 6f045b76dc1088d86beab2aa1b8bacdf842dc911
